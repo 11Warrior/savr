@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict 9PHNShh4RcEroPjxiobeMco3yRgqyUwlCFYtAm3vbwxZr6gYeTQm5N3razlDhkT
+\restrict sSCEKbY3xpcQAUgoyixoohLB0DDcSxQDaqIMccViXxVUzabohtmx1PXoeDPhLmu
 
 -- Dumped from database version 16.11
 -- Dumped by pg_dump version 16.11
@@ -164,5 +164,5 @@ GRANT ALL ON SCHEMA public TO test;
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 9PHNShh4RcEroPjxiobeMco3yRgqyUwlCFYtAm3vbwxZr6gYeTQm5N3razlDhkT
+\unrestrict sSCEKbY3xpcQAUgoyixoohLB0DDcSxQDaqIMccViXxVUzabohtmx1PXoeDPhLmu
 

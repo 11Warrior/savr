@@ -14,6 +14,6 @@ program
 program
     .command('restore <filename>')
     .description('Restoring from existing db file')
-    .action(restore)
+    .action((filename) => restore(filename))
 
 program.parse(process.argv);

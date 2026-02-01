@@ -12,5 +12,4 @@ export class BackupManager {
 
         await this.storage.save(backedUp, filename);
     }
-
 }

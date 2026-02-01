@@ -8,9 +8,9 @@ export const backup = async () => {
     const adapter = new PostgresAdapter(process.env);
     const storage = new LocalStorage();
 
-    const manager = new BackupManager(adapter, storage);
+    const backupManager = new BackupManager(adapter, storage);
 
-    const fileName = `backup-${Date.now()}.enc`;
-
-    await manager.run(fileName);
+    const fileName = `backup-${Date.now()}.sql`;
+    console.log('Backing up the db...');
+    await backupManager.run(fileName);
 }

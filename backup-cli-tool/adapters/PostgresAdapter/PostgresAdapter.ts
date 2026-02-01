@@ -8,7 +8,7 @@ export class PostgresAdapter implements Adapter {
     testConnection(): Promise<void> {
         return new Promise((resolve, reject) => {
             const psql_child = spawn('psql', [
-                // '-h', this.config.DB_HOST,
+                '-h', this.config.DB_HOST,
                 '-U', this.config.DB_USER,
                 // '-p', this.config.DB_PORT,
                 '-d', this.config.DB_NAME,
@@ -54,13 +54,14 @@ export class PostgresAdapter implements Adapter {
 
         return backup_data.stdout;
 
-
     }
 
     restore(file: Readable): Promise<void> {
+        // console.log(this.config.DB_NAME);
         const restored_backup = spawn('psql', [
-            '-U', this.config.DB_USER,
             '-h', this.config.DB_HOST,
+            '-U', this.config.DB_USER,
+            '-d', this.config.DB_NAME,
             this.config.DB_NAME
 
         ],

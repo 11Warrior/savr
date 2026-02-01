@@ -1,16 +1,16 @@
 import path from 'path';
 import fs, { createReadStream, createWriteStream } from 'fs'
-import { Readable } from 'stream';
+import Stream, { Readable } from 'stream';
 
 export class LocalStorage {
-    save(dataStream: Readable, filename: string) {
+    save(dataStream: Readable, filename: string): Promise<void> {
         return new Promise((resolve, reject) => {
             const filePath = path.join('backup', 'postgress', filename)
             dataStream.pipe(createWriteStream(filePath)).on('finish', resolve);
         })
     }
 
-    load(filename: string) {
+    load(filename: string): Stream {
         return fs.createReadStream(path.join('backup', 'postgress', filename));
     }
 }
