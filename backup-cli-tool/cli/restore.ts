@@ -9,6 +9,6 @@ export const restore = async (filename: string) => {
 
     const restoreManager = new RestoreManager(adapter, storage);
 
-    console.log('Restoring... ', filename);
+    console.log('Restoring database... ', filename);
     await restoreManager.run(filename);
 }
