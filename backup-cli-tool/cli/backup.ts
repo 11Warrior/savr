@@ -4,13 +4,13 @@ import { BackupManager } from "../core/BackupManager";
 import { LocalStorage } from "../storage/LocalStorage";
 
 export const backup = async () => {
-
     const adapter = new PostgresAdapter(process.env);
     const storage = new LocalStorage();
 
     const backupManager = new BackupManager(adapter, storage);
 
     const fileName = `backup-${Date.now()}.sql`;
-    console.log('Backing up the db...');
+    console.log('Preparing backup...');
+    
     await backupManager.run(fileName);
 }

@@ -7,20 +7,28 @@ export class PostgresAdapter implements Adapter {
 
     testConnection(): Promise<void> {
         return new Promise((resolve, reject) => {
-            const psql_child = spawn('psql', [
-                '-h', this.config.DB_HOST,
-                '-U', this.config.DB_USER,
-                // '-p', this.config.DB_PORT,
-                '-d', this.config.DB_NAME,
-                '-c', "\\q"
+            let args: string[] = [];
+            let env = { ...process.env };
 
-            ], {
-                env: {
-                    ...process.env,
-                    PGPASSWORD: this.config.DB_PASS
+            if (this.config.DB_URL) {
+                args = [
+                    this.config.DB_URL,
+                    '-c', "\\q"
 
-                }
-            })
+                ];
+            } else {
+                args = [
+                    '-h', this.config.DB_HOST,
+                    '-U', this.config.DB_USER,
+                    // '-p', this.config.DB_PORT,
+                    '-d', this.config.DB_NAME,
+                    '-c', "\\q"
+                ]
+
+                env = { ...env, PGPASSWORD: this.config.DB_PASS }
+            }
+
+            const psql_child = spawn('psql', args, { env })
 
             psql_child.on('exit', (code) => {
                 if (code === 0) {
@@ -33,7 +41,21 @@ export class PostgresAdapter implements Adapter {
     }
 
     backup(): Readable {
-        if (!this.testConnection()) throw new Error('Connection Failed');
+        if (this.config.DB_URL) {
+            //...backup using hosted url
+            const backup_data = spawn('pg_dump',
+                [
+
+                    this.config.DB_URL
+                ]
+            )
+
+            backup_data.stderr.on('data', (data) => {
+                console.log("Error while backing up the data from host", data.toString());
+            })
+
+            return backup_data.stdout;
+        }
 
         const backup_data = spawn('pg_dump',
             [
@@ -53,11 +75,28 @@ export class PostgresAdapter implements Adapter {
         })
 
         return backup_data.stdout;
-
     }
 
     restore(file: Readable): Promise<void> {
         // console.log(this.config.DB_NAME);
+        if (this.config.DB_URL) {
+            const restored_backup = spawn('psql', [
+                this.config.DB_URL
+            ])
+
+            file.pipe(restored_backup.stdin);
+
+            return new Promise((resolve, reject) => {
+                restored_backup.on('exit', (code) => {
+                    if (code === 0) {
+                        resolve();
+                    } else {
+                        reject(new Error("Error while restoring for hosted db"));
+                    }
+                })
+            })
+        }
+
         const restored_backup = spawn('psql', [
             '-h', this.config.DB_HOST,
             '-U', this.config.DB_USER,
@@ -83,6 +122,5 @@ export class PostgresAdapter implements Adapter {
                 }
             })
         })
-
     }
 }
