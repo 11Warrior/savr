@@ -1,11 +1,11 @@
 node_modules
 
 package-lock.json
-package.json
-
 
 /savr/backup
 
 .env
+
+/savr/tsconfig.tsbuildinfo
 
 /savr/dist/*
