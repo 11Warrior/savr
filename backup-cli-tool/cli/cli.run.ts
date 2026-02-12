@@ -1,12 +1,18 @@
-import 'dotenv/config';
+#!/usr/bin/env node
+
+import { config } from 'dotenv';
 import { Command } from 'commander'
 import { backup } from './backup'
 import { restore } from './restore';
+import path from 'path';
+
+config({
+    path: path.resolve(process.cwd(), '.env')
+})
 
 const program = new Command();
 
 program
-    .name('backup')
     .command('backup')
     .argument('<dbtype>', 'database type [postgres, mongodb]', (dbtype) => {
         if (!['postgres', 'mongodb'].includes(dbtype)) {
@@ -19,7 +25,6 @@ program
 
 
 program
-    .name('restore')
     .command('restore <filename>')
     .description('Restoring from existing db file')
     .action((filename) => restore(filename))

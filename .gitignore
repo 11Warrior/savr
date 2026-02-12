@@ -3,13 +3,9 @@ node_modules
 package-lock.json
 package.json
 
-/backup/*
 
 /backup-cli-tool/backup
+
 .env
 
-./backup-cli-tools/dist
-
-/postgres/*
-
-backup-cli-tool/backup/postgres/*
+/backup-cli-tool/dist/*
