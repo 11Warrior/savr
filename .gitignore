@@ -4,8 +4,8 @@ package-lock.json
 package.json
 
 
-/backup-cli-tool/backup
+/savr/backup
 
 .env
 
-/backup-cli-tool/dist/*
+/savr/dist/*

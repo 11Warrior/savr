@@ -2,8 +2,8 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-    "rootDir": "./backup-cli-tool",
-    "outDir": "./backup-cli-tool/dist",
+    "rootDir": "./savr",
+    "outDir": "./savr/dist",
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
