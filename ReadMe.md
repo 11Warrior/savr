@@ -35,10 +35,10 @@ Install `backup-cli-tool` using one of the following methods. Choose the global 
 ### Using npm
 
 ```bash
-npm install -g backup-cli-tool
+npm install -g savr-cli
 ```
 
-This command installs the package globally, making the `backup-cli-tool` command available in your shell. You may need administrator or superuser privileges depending on your system configuration. After installation, you can run `backup-cli-tool --version` to confirm that the CLI is correctly installed.
+This command installs the package globally, making the `savr` command available in your shell. You may need administrator or superuser privileges depending on your system configuration. After installation, you can run `savr --version` to confirm that the CLI is correctly installed.
 
 ### From Source
 
@@ -76,6 +76,18 @@ Running the compiled entry point with Node.js allows you to test the tool direct
 ## Usage
 
 `backup-cli-tool` uses a command-line interface with various options and commands. Each subcommand focuses on a specific lifecycle action, such as creating, listing, or restoring backups. Options let you point to configuration files, tweak behavior, and control logging without changing code. You can combine options to create powerful scripts tailored to your environment.
+
+### Savr Backup Commands
+
+`savr` currently supports backing up databases directly or from existing dump files. You choose either a database type or a dump filename depending on your workflow.
+
+```bash
+savr backup <dbtype>
+savr backup <filename>
+```
+
+- For `<dbtype>`, use `mongodb` or `postgres`.
+- For `<filename>`, use a file ending in `.sql` or `.mongodb`.
 
 ### Basic Backup
 
@@ -200,6 +212,8 @@ We welcome contributions from the community! To get started:
 - Submit a pull request with a clear description
 
 Forking the repository creates your own copy where you can experiment without affecting the original project. Creating a dedicated branch isolates each feature or bugfix, making it easier to review and, if necessary, revert. Adding tests ensures that your changes do not introduce regressions and that future contributors understand the expected behavior. A clear pull request description helps maintainers quickly grasp your intent, review the implementation, and provide constructive feedback.
+
+For contributing to the CLI itself, you can set up a local development environment with these steps. Fork the repo, clone it locally, run `npm install`, then run `npm run build`. After building, run the compiled `cli.run.js` file from the `dist` directory using `ts-node` to exercise the CLI during development.
 
 Please follow the existing code style and write appropriate tests for new features. Consistent style keeps the codebase readable and maintainable for everyone. When in doubt, look at existing files as examples for formatting, naming, and patterns. If you introduce significant changes, consider updating documentation so users can benefit from new capabilities.
 
