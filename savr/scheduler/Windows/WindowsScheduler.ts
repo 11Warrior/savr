@@ -1,16 +1,22 @@
-import { Scheduler } from "../Scheduler";
+// import { Scheduler } from "../Scheduler";
 
-export class WindowsScheduler implements Scheduler {
-    async start(dbtype: string, interval: number): Promise<void> {
-        const serviceFile = `savr-${dbtype}`
-    }
+// export class WindowsScheduler implements Scheduler {
+//     constructor(private dbtype: string) { }
 
-    async stop(dbtype: string): Promise<void> {
+//     async start(interval: string): Promise<void> {
+        
 
-    }
+//         const entryPath = process.argv[1];
 
-    async status(): Promise<void> {
+//     }
+
+//     async stop(): Promise<void> {
+
+        
+//     }
+
+//     async status(): Promise<void> {
 
 
-    }
-}
+//     }
+// }
